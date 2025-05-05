@@ -1,0 +1,58 @@
+{
+	"name": "src_dc_person_stateprovince",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lnk_adls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Person_StateProvince_566.csv",
+				"folderPath": "data",
+				"fileSystem": "abhi-container-dev"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "StateProvinceID",
+				"type": "String"
+			},
+			{
+				"name": "StateProvinceCode",
+				"type": "String"
+			},
+			{
+				"name": "CountryRegionCode",
+				"type": "String"
+			},
+			{
+				"name": "IsOnlyStateProvinceFlag",
+				"type": "String"
+			},
+			{
+				"name": "Name",
+				"type": "String"
+			},
+			{
+				"name": "TerritoryID",
+				"type": "String"
+			},
+			{
+				"name": "rowguid",
+				"type": "String"
+			},
+			{
+				"name": "ModifiedDate",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

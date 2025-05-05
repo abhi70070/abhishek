@@ -1,0 +1,9 @@
+{
+	"name": "df-abhi-dev",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "d129533f-ae16-43ce-b4c5-92b4340a3a33",
+		"tenantId": "c6432ef9-2257-46d1-8b41-3fe8d7d401cf"
+	}
+}
