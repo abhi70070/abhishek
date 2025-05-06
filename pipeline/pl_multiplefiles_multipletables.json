@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "DelimitedText2",
+						"referenceName": "src_multiplefiles_multipletables",
 						"type": "DatasetReference"
 					},
 					"fieldList": [
@@ -91,7 +91,7 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "DelimitedText3",
+									"referenceName": "sr_multiplefiles_multipletables",
 									"type": "DatasetReference",
 									"parameters": {
 										"x": {
@@ -103,11 +103,11 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "AzureSqlTable2",
+									"referenceName": "snc_multiplefiles_multipletables",
 									"type": "DatasetReference",
 									"parameters": {
 										"y": {
-											"value": "@substring(item().name,0,lastindexof(item().name,'_'))",
+											"value": "@substring(item().name,0,lastIndexOf(item().name,'_'))",
 											"type": "Expression"
 										}
 									}
@@ -118,11 +118,8 @@
 				}
 			}
 		],
-		"folder": {
-			"name": "dev"
-		},
 		"annotations": [],
-		"lastPublishTime": "2025-04-28T08:55:29Z"
+		"lastPublishTime": "2025-05-06T09:48:33Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }
