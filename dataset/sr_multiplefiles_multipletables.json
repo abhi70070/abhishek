@@ -1,0 +1,38 @@
+{
+	"name": "sr_multiplefiles_multipletables",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lnk_adls_1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"x": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().x",
+					"type": "Expression"
+				},
+				"folderPath": "data1",
+				"fileSystem": "abhishek-container-dev"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "AddressTypeID|Name|rowguid|ModifiedDate",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

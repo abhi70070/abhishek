@@ -1,0 +1,9 @@
+{
+	"name": "df-abhishek-dev",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "21a3b5a4-8f52-4de6-8cbe-5bc40a2f46fd",
+		"tenantId": "51260900-a2f0-4642-bbc5-fd7634d88241"
+	}
+}
