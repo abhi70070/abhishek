@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText4",
+	"name": "DelimitedText9",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "lnk_adls_1",
@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "Person_Address_001.csv",
+				"fileName": "lastfile.ctl",
 				"folderPath": "data1",
 				"fileSystem": "abhishek-container-dev"
 			},
@@ -21,7 +21,7 @@
 		},
 		"schema": [
 			{
-				"name": "AddressID|AddressLine1|AddressLine2|City|StateProvinceID|PostalCode|SpatialLocation|rowguid|ModifiedDate",
+				"name": "files have been copied ",
 				"type": "String"
 			}
 		]

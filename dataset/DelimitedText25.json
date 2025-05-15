@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText15",
+	"name": "DelimitedText25",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "lnk_adls_1",
@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "sed file",
+				"folderPath": "join/joinoutput",
 				"fileSystem": "abhishek-container-dev"
 			},
 			"columnDelimiter": ",",
@@ -20,47 +20,55 @@
 		},
 		"schema": [
 			{
-				"name": "id",
+				"name": "DEPARTMENT_ID",
 				"type": "String"
 			},
 			{
-				"name": "first_name",
+				"name": "DEPARTMENT_NAME",
 				"type": "String"
 			},
 			{
-				"name": "last_name",
+				"name": "MANAGER_ID",
 				"type": "String"
 			},
 			{
-				"name": "address",
+				"name": "LOCATION_ID",
 				"type": "String"
 			},
 			{
-				"name": "phone_number",
+				"name": "EMPLOYEE_ID",
 				"type": "String"
 			},
 			{
-				"name": "email",
+				"name": "FIRST_NAME",
 				"type": "String"
 			},
 			{
-				"name": "created_by",
+				"name": "LAST_NAME",
 				"type": "String"
 			},
 			{
-				"name": "created_at",
+				"name": "EMAIL",
 				"type": "String"
 			},
 			{
-				"name": "updated_by",
+				"name": "PHONE_NUMBER",
 				"type": "String"
 			},
 			{
-				"name": "updated_at",
+				"name": "HIRE_DATE",
 				"type": "String"
 			},
 			{
-				"name": "is_active",
+				"name": "JOB_ID",
+				"type": "String"
+			},
+			{
+				"name": "SALARY",
+				"type": "String"
+			},
+			{
+				"name": "COMMISSION_PCT",
 				"type": "String"
 			}
 		]

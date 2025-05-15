@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText4",
+	"name": "DelimitedText23",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "lnk_adls_1",
@@ -10,8 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "Person_Address_001.csv",
-				"folderPath": "data1",
+				"fileName": "EMPLOYEE1",
+				"folderPath": "union",
 				"fileSystem": "abhishek-container-dev"
 			},
 			"columnDelimiter": ",",
@@ -21,7 +21,19 @@
 		},
 		"schema": [
 			{
-				"name": "AddressID|AddressLine1|AddressLine2|City|StateProvinceID|PostalCode|SpatialLocation|rowguid|ModifiedDate",
+				"name": "employee_id",
+				"type": "String"
+			},
+			{
+				"name": "first_name",
+				"type": "String"
+			},
+			{
+				"name": "last_name",
+				"type": "String"
+			},
+			{
+				"name": "department",
 				"type": "String"
 			}
 		]

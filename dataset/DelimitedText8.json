@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText4",
+	"name": "DelimitedText8",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "lnk_adls_1",
@@ -14,7 +14,7 @@
 				"folderPath": "data1",
 				"fileSystem": "abhishek-container-dev"
 			},
-			"columnDelimiter": ",",
+			"columnDelimiter": "|",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""

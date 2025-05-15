@@ -2,11 +2,11 @@
 	"name": "AzureSqlTable5",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "lnk_azuresql",
+			"referenceName": "azure_sql_1",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"x": {
+			"y": {
 				"type": "string"
 			}
 		},
@@ -16,7 +16,7 @@
 		"typeProperties": {
 			"schema": "dbo",
 			"table": {
-				"value": "@dataset().x",
+				"value": "@dataset().y",
 				"type": "Expression"
 			}
 		}

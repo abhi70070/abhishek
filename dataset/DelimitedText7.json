@@ -2,7 +2,7 @@
 	"name": "DelimitedText7",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "lnk_adls",
+			"referenceName": "lnk_adls_1",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
@@ -10,18 +10,18 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "Person_CountryRegion_678.csv",
-				"folderPath": "data",
-				"fileSystem": "abhi-container-dev"
+				"fileName": "Person_Address_001.csv",
+				"folderPath": "data1",
+				"fileSystem": "abhishek-container-dev"
 			},
-			"columnDelimiter": "|",
+			"columnDelimiter": ",",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
 		"schema": [
 			{
-				"name": "CountryRegionCode|Name|ModifiedDate",
+				"name": "AddressID|AddressLine1|AddressLine2|City|StateProvinceID|PostalCode|SpatialLocation|rowguid|ModifiedDate",
 				"type": "String"
 			}
 		]

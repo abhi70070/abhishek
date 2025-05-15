@@ -2,29 +2,23 @@
 	"name": "AzureSqlTable6",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "lnk_azuresql",
+			"referenceName": "azure_sql_1",
 			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"y": {
+				"type": "string"
+			}
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
-		"schema": [
-			{
-				"name": "CountryRegionCode",
-				"type": "int",
-				"precision": 10
-			},
-			{
-				"name": "Name",
-				"type": "varchar"
-			},
-			{
-				"name": "ModifiedDate",
-				"type": "varchar"
-			}
-		],
+		"schema": [],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "Person_CountryRegion"
+			"table": {
+				"value": "@dataset().y",
+				"type": "Expression"
+			}
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"

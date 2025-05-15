@@ -1,0 +1,78 @@
+{
+	"name": "joindf",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText19",
+						"type": "DatasetReference"
+					},
+					"name": "dep"
+				},
+				{
+					"dataset": {
+						"referenceName": "DelimitedText20",
+						"type": "DatasetReference"
+					},
+					"name": "emp"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText21",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "join1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          DEPARTMENT_ID as string,",
+				"          DEPARTMENT_NAME as string,",
+				"          MANAGER_ID as string,",
+				"          LOCATION_ID as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> dep",
+				"source(output(",
+				"          EMPLOYEE_ID as string,",
+				"          FIRST_NAME as string,",
+				"          LAST_NAME as string,",
+				"          EMAIL as string,",
+				"          PHONE_NUMBER as string,",
+				"          HIRE_DATE as string,",
+				"          JOB_ID as string,",
+				"          SALARY as string,",
+				"          COMMISSION_PCT as string,",
+				"          MANAGER_ID as string,",
+				"          DEPARTMENT_ID as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> emp",
+				"dep, emp join(dep@DEPARTMENT_ID == emp@DEPARTMENT_ID,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1",
+				"join1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink1"
+			]
+		}
+	}
+}

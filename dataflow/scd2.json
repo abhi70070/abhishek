@@ -1,0 +1,180 @@
+{
+	"name": "scd2",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText15",
+						"type": "DatasetReference"
+					},
+					"name": "custFile"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable9",
+						"type": "DatasetReference"
+					},
+					"name": "custTable"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable10",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable11",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "exists1"
+				},
+				{
+					"name": "exists2"
+				},
+				{
+					"name": "AlterRow1"
+				},
+				{
+					"name": "filter2"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          id as integer,",
+				"          first_name as string,",
+				"          last_name as string,",
+				"          address as string,",
+				"          phone_number as string,",
+				"          email as string,",
+				"          created_by as string,",
+				"          created_at as string,",
+				"          updated_by as string,",
+				"          updated_at as string,",
+				"          is_active as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> custFile",
+				"source(output(",
+				"          customer_id as integer,",
+				"          first_name as string,",
+				"          last_name as string,",
+				"          address as string,",
+				"          phone_number as string,",
+				"          email as string,",
+				"          created_by as string,",
+				"          created_at as timestamp,",
+				"          updated_by as string,",
+				"          updated_at as timestamp,",
+				"          is_active as boolean",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> custTable",
+				"custFile derive(src_hashkey = md5(address,phone_number,email),",
+				"          active = 1) ~> derivedColumn1",
+				"filter2 derive(snk_hashkey = md5(address,phone_number,email),",
+				"          active = 0) ~> derivedColumn2",
+				"derivedColumn1, derivedColumn2 exists(id == customer_id",
+				"     && src_hashkey == snk_hashkey,",
+				"     negate:true,",
+				"     broadcast: 'auto')~> exists1",
+				"derivedColumn2, derivedColumn1 exists(id == customer_id",
+				"     && src_hashkey != snk_hashkey,",
+				"     negate:false,",
+				"     broadcast: 'auto')~> exists2",
+				"exists2 alterRow(updateIf(1==1)) ~> AlterRow1",
+				"custTable filter(is_active==true()) ~> filter2",
+				"exists1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          customer_id as integer,",
+				"          first_name as string,",
+				"          last_name as string,",
+				"          address as string,",
+				"          phone_number as string,",
+				"          email as string,",
+				"          created_by as string,",
+				"          created_at as timestamp,",
+				"          updated_by as string,",
+				"          updated_at as timestamp,",
+				"          is_active as boolean",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     saveOrder: 2,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          customer_id = id,",
+				"          first_name,",
+				"          last_name,",
+				"          address,",
+				"          phone_number,",
+				"          email,",
+				"          is_active = active",
+				"     )) ~> sink1",
+				"AlterRow1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          customer_id as integer,",
+				"          first_name as string,",
+				"          last_name as string,",
+				"          address as string,",
+				"          phone_number as string,",
+				"          email as string,",
+				"          created_by as string,",
+				"          created_at as timestamp,",
+				"          updated_by as string,",
+				"          updated_at as timestamp,",
+				"          is_active as boolean",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:false,",
+				"     updateable:true,",
+				"     upsertable:false,",
+				"     keys:['customer_id'],",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     saveOrder: 1,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          customer_id,",
+				"          first_name,",
+				"          last_name,",
+				"          address,",
+				"          phone_number,",
+				"          email,",
+				"          created_by,",
+				"          created_at,",
+				"          updated_by,",
+				"          updated_at,",
+				"          is_active = active",
+				"     )) ~> sink2"
+			]
+		}
+	}
+}

@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText15",
+	"name": "DelimitedText22",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "lnk_adls_1",
@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "sample_data.csv",
 				"folderPath": "sed file",
 				"fileSystem": "abhishek-container-dev"
 			},

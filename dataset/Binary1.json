@@ -1,24 +1,19 @@
 {
-	"name": "DelimitedText1",
+	"name": "Binary1",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "lnk_adls_1",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
-		"type": "DelimitedText",
+		"type": "Binary",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "data",
+				"folderPath": "humanresource",
 				"fileSystem": "abhishek-container-dev"
-			},
-			"columnDelimiter": ",",
-			"escapeChar": "\\",
-			"firstRowAsHeader": true,
-			"quoteChar": "\""
-		},
-		"schema": []
+			}
+		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
 }

@@ -2,34 +2,26 @@
 	"name": "DelimitedText3",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "lnk_adls",
+			"referenceName": "lnk_adls_1",
 			"type": "LinkedServiceReference"
-		},
-		"parameters": {
-			"x": {
-				"type": "string"
-			}
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": {
-					"value": "@dataset().x",
-					"type": "Expression"
-				},
+				"fileName": "Person_Address_001.csv",
 				"folderPath": "data1",
-				"fileSystem": "abhi-container-dev1"
+				"fileSystem": "abhishek-container-dev"
 			},
-			"columnDelimiter": "|",
+			"columnDelimiter": ",",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
 		"schema": [
 			{
-				"name": "AddressTypeID|Name|rowguid|ModifiedDate",
+				"name": "AddressID|AddressLine1|AddressLine2|City|StateProvinceID|PostalCode|SpatialLocation|rowguid|ModifiedDate",
 				"type": "String"
 			}
 		]

@@ -2,7 +2,7 @@
 	"name": "DelimitedText16",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "lnk_adls",
+			"referenceName": "lnk_adls_1",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
@@ -10,15 +10,33 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "data1",
-				"fileSystem": "abhi-container-dev"
+				"fileName": "employees_1.csv",
+				"folderPath": "union",
+				"fileSystem": "abhishek-container-dev"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
-		"schema": []
+		"schema": [
+			{
+				"name": "employee_id",
+				"type": "String"
+			},
+			{
+				"name": "first_name",
+				"type": "String"
+			},
+			{
+				"name": "last_name",
+				"type": "String"
+			},
+			{
+				"name": "department",
+				"type": "String"
+			}
+		]
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
 }
