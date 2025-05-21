@@ -1,18 +1,11 @@
 {
-	"name": "pl_until",
+	"name": "pl_schema",
 	"properties": {
 		"activities": [
 			{
-				"name": "Get Metadata2",
+				"name": "Get Metadata1",
 				"type": "GetMetadata",
-				"dependsOn": [
-					{
-						"activity": "Until1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -23,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "DelimitedText26",
+						"referenceName": "DelimitedText30",
 						"type": "DatasetReference"
 					},
 					"fieldList": [
@@ -44,7 +37,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Get Metadata2",
+						"activity": "Get Metadata1",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -53,13 +46,13 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Get Metadata2').output.childItems",
+						"value": "@activity('Get Metadata1').output.childItems",
 						"type": "Expression"
 					},
 					"activities": [
 						{
-							"name": "Copy data1",
-							"type": "Copy",
+							"name": "Get Metadata2",
+							"type": "GetMetadata",
 							"dependsOn": [],
 							"policy": {
 								"timeout": "0.12:00:00",
@@ -70,35 +63,8 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"source": {
-									"type": "DelimitedTextSource",
-									"storeSettings": {
-										"type": "AzureBlobFSReadSettings",
-										"recursive": true,
-										"enablePartitionDiscovery": false
-									},
-									"formatSettings": {
-										"type": "DelimitedTextReadSettings"
-									}
-								},
-								"sink": {
-									"type": "AzureSqlSink",
-									"writeBehavior": "insert",
-									"sqlWriterUseTableLock": false
-								},
-								"enableStaging": false,
-								"translator": {
-									"type": "TabularTranslator",
-									"typeConversion": true,
-									"typeConversionSettings": {
-										"allowDataTruncation": true,
-										"treatBooleanAsNumber": false
-									}
-								}
-							},
-							"inputs": [
-								{
-									"referenceName": "DelimitedText27",
+								"dataset": {
+									"referenceName": "DelimitedText31",
 									"type": "DatasetReference",
 									"parameters": {
 										"x": {
@@ -106,35 +72,20 @@
 											"type": "Expression"
 										}
 									}
+								},
+								"fieldList": [
+									"structure"
+								],
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
 								}
-							],
-							"outputs": [
-								{
-									"referenceName": "AzureSqlTable13",
-									"type": "DatasetReference",
-									"parameters": {
-										"y": {
-											"value": "@substring(item().name,0,lastIndexOf(item().name,'.' ))",
-											"type": "Expression"
-										}
-									}
-								}
-							]
-						}
-					]
-				}
-			},
-			{
-				"name": "Until1",
-				"type": "Until",
-				"dependsOn": [],
-				"userProperties": [],
-				"typeProperties": {
-					"expression": {
-						"value": "@activity('Get Metadata3').output.exists",
-						"type": "Expression"
-					},
-					"activities": [
+							}
+						},
 						{
 							"name": "Get Metadata3",
 							"type": "GetMetadata",
@@ -149,11 +100,17 @@
 							"userProperties": [],
 							"typeProperties": {
 								"dataset": {
-									"referenceName": "DelimitedText28",
-									"type": "DatasetReference"
+									"referenceName": "DelimitedText32",
+									"type": "DatasetReference",
+									"parameters": {
+										"y": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
 								},
 								"fieldList": [
-									"exists"
+									"structure"
 								],
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
@@ -170,6 +127,12 @@
 							"type": "IfCondition",
 							"dependsOn": [
 								{
+									"activity": "Get Metadata2",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								},
+								{
 									"activity": "Get Metadata3",
 									"dependencyConditions": [
 										"Succeeded"
@@ -179,58 +142,81 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@activity('Get Metadata3').output.exists",
+									"value": "@equals(activity('Get Metadata2').output,activity('Get Metadata3').output)",
 									"type": "Expression"
 								},
-								"ifFalseActivities": [
-									{
-										"name": "Wait1",
-										"type": "Wait",
-										"dependsOn": [],
-										"userProperties": [],
-										"typeProperties": {
-											"waitTimeInSeconds": 120
-										}
-									}
-								],
 								"ifTrueActivities": [
 									{
-										"name": "Set variable1",
-										"type": "SetVariable",
-										"state": "Inactive",
-										"onInactiveMarkAs": "Succeeded",
+										"name": "Copy data1",
+										"type": "Copy",
 										"dependsOn": [],
 										"policy": {
+											"timeout": "0.12:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
 											"secureOutput": false,
 											"secureInput": false
 										},
 										"userProperties": [],
 										"typeProperties": {
-											"variableName": "filefound",
-											"value": {
-												"value": "@activity('Get Metadata3').output.exists",
-												"type": "Expression"
+											"source": {
+												"type": "DelimitedTextSource",
+												"storeSettings": {
+													"type": "AzureBlobFSReadSettings",
+													"recursive": true,
+													"wildcardFileName": "*.csv",
+													"enablePartitionDiscovery": false
+												},
+												"formatSettings": {
+													"type": "DelimitedTextReadSettings"
+												}
+											},
+											"sink": {
+												"type": "DelimitedTextSink",
+												"storeSettings": {
+													"type": "AzureBlobFSWriteSettings"
+												},
+												"formatSettings": {
+													"type": "DelimitedTextWriteSettings",
+													"quoteAllText": true,
+													"fileExtension": ".txt"
+												}
+											},
+											"enableStaging": false,
+											"translator": {
+												"type": "TabularTranslator",
+												"typeConversion": true,
+												"typeConversionSettings": {
+													"allowDataTruncation": true,
+													"treatBooleanAsNumber": false
+												}
 											}
-										}
+										},
+										"inputs": [
+											{
+												"referenceName": "DelimitedText33",
+												"type": "DatasetReference"
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "DelimitedText34",
+												"type": "DatasetReference"
+											}
+										]
 									}
 								]
 							}
 						}
-					],
-					"timeout": "0.00:05:00"
+					]
 				}
 			}
 		],
-		"variables": {
-			"filefound": {
-				"type": "Boolean"
-			}
-		},
 		"folder": {
 			"name": "df_pl"
 		},
 		"annotations": [],
-		"lastPublishTime": "2025-05-16T05:56:52Z"
+		"lastPublishTime": "2025-05-21T06:04:29Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

@@ -1,0 +1,37 @@
+{
+	"name": "DelimitedText29",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lnk_adls_1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"y": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().y",
+					"type": "Expression"
+				},
+				"fileSystem": "abhishek-container-dev"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "AddressTypeID|Name|rowguid|ModifiedDate",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
