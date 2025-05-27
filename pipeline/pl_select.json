@@ -27,8 +27,11 @@
 				}
 			}
 		],
+		"folder": {
+			"name": "df_pl"
+		},
 		"annotations": [],
-		"lastPublishTime": "2025-05-14T09:37:48Z"
+		"lastPublishTime": "2025-05-21T06:11:56Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }
