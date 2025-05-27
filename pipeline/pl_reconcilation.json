@@ -170,35 +170,35 @@
 									"type": "DatasetReference"
 								}
 							]
-						},
-						{
-							"name": "Stored procedure1",
-							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "auditlog",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"storedProcedureName": "[dbo].[reconcilation]"
-							},
-							"linkedServiceName": {
-								"referenceName": "AzureSqlDatabase1",
-								"type": "LinkedServiceReference"
-							}
 						}
 					]
+				}
+			},
+			{
+				"name": "Stored procedure1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "ForEach1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[daily_recons]"
+				},
+				"linkedServiceName": {
+					"referenceName": "azure_sql_1",
+					"type": "LinkedServiceReference"
 				}
 			}
 		],
@@ -206,7 +206,7 @@
 			"name": "df_pl"
 		},
 		"annotations": [],
-		"lastPublishTime": "2025-05-22T11:32:58Z"
+		"lastPublishTime": "2025-05-27T08:55:40Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }
